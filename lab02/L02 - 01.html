@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>NJP Labos 02 - zadatak 01</title>
+    <style>
+        table {
+            width: 80%;
+        }
+        input {
+            width: 100%;
+        }
+        button {
+            height: 20%;
+            background-color: #449D44;
+            color: white;
+            border-radius: 10%;
+            width: 100px;
+        }
+        .left {
+            display: block;
+            text-align: left;
+        }
+        .right{
+            width: 20%;
+            text-align: center;
+        }
+        textarea {
+            height: 200px;
+            width: 100%;
+            margin: 1px;
+            padding: 1px;
+            resize: none;
+        }
+        .commentsInForum{
+            margin: 3em 0;
+        }
+        #comments {
+            border: 1px solid darkslategray;
+            width: 80%;
+            background-color: lightgray;
+        }
+        .comment {
+            margin: 0.5em 0.5em;
+            border: 1px solid darkslategray;
+            padding: 5px 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Forum</h1>
+    <div class="commentForm">
+        <p>Enter a new comment:</p>
+        <form class="commentForm">
+            <table>
+                <tr>
+                    <td class="left"><label>Username</label></td>
+                    <td class="middle"><input type="text" id="username" /></td>
+                    <td class="right"></td>
+                </tr>
+                <tr>
+                    <td class="left"><label>Password</label></td>
+                    <td class="middle"><input type="password" id="password" /></td>
+                    <td class="right"></td>
+                </tr>
+                <tr>
+                    <td class="left"><label>Repeat password</label></td>
+                    <td class="middle"><input type="password" id="passwordRepeat" /></td>
+                    <td class="right"></td>
+                </tr>
+                <tr>
+                    <td class="left"><label>Comment</label></td>
+                    <td class="middle"><textarea id="text"></textarea></td>
+                    <td class="right" id="textCounter"></td>
+                </tr>
+                <tr>
+                    <td class="left"><label>Submit</label></td>
+                    <td class="middle"><button id="button">Post</button></td>
+                    <td class="right" id="invalidForm"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="commentsInForum">
+        <p id="commentNumber"></p>
+        <div class="comments" id="comments">
+        </div>
+    </div>
+    <script type="text/javascript">
+        let commentArray = [
+            {"autor": "Marko", "komentar": "Neki komentar"},
+            {"autor": "Ivan", "komentar": "Još neki komentar"},
+            {"autor": "Petra", "komentar": "Neki komentar 2"},
+            {"autor": "Anja", "komentar": "Neki komentar 3"},
+            {"autor": "Tomislav", "komentar": "Neki komentar 4"},
+            {"autor": "Jana", "komentar": "Neki komentar 5"}
+        ];
+    
+        function updateCommentCount() {
+            const commentCount = commentArray.length;
+            document.getElementById("commentNumber").textContent = `Broj komentara (${commentCount})`;
+        }
+    
+        for (let i = 0; i < commentArray.length; i++) {
+            let commentDiv = document.createElement('div');
+            commentDiv.classList = "comment";
+            commentDiv.innerHTML = "by " + commentArray[i].autor + "<br/>" + commentArray[i].komentar;
+            document.getElementById('comments').appendChild(commentDiv);
+        }
+    
+        updateCommentCount();
+    
+        document.getElementById('button').addEventListener("click", function (event) {
+            if (document.getElementById("username").value.length >= 8 && (document.getElementById("password").value === document.getElementById("passwordRepeat").value)) {
+                event.preventDefault();
+    
+                let newComment = document.createElement("div");
+                newComment.classList = "comment";
+                newComment.innerHTML = "by " + document.getElementById("username").value + "<br/>" + document.getElementById("text").value;
+                document.getElementById('comments').appendChild(newComment);
+    
+                document.getElementById("text").value = "";
+                document.getElementById("username").value = "";
+                document.getElementById("password").value = "";
+                document.getElementById("passwordRepeat").value = "";
+                document.getElementById("invalidForm").textContent = "";
+                
+                commentArray.push({"autor": document.getElementById("username").value, "komentar": document.getElementById("text").value});
+                updateCommentCount();
+            } else {
+                event.preventDefault();
+                document.getElementById("invalidForm").textContent = "Invalid form";
+                document.getElementById("invalidForm").style.color = "red";
+            }
+        });
+    
+        document.getElementById("text").addEventListener("input", function(event) {
+            let textarea = document.getElementById("text");
+            let textCounter = document.getElementById("textCounter");
+            let numberOfChars = textarea.value.length;
+    
+            textCounter.textContent = numberOfChars;
+    
+            if (numberOfChars >= 50) {
+                document.getElementById('button').disabled = true;
+            } else {
+                document.getElementById('button').disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
