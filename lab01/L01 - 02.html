@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <meta charset="UTF-8">
+    <html>
+    <head>
+        <title>NJP Labos 01 - zadatak 02</title>
+
+    </head>
+    <body >
+        <script type="text/javascript">
+            function zbrajanje(a, b){
+               return a+b;
+            }
+
+            function oduzimanje(a, b){
+                return a-b;
+            }
+        
+            function mnozenje(a, b){
+                return a*b;
+            }
+            function dijeljenje(a, b){
+                return a/b;
+            }
+            function modulo(a, b){
+                return a%b;
+            }
+
+            function generator(operator){
+                if (operator === "+") return zbrajanje;
+                else if(operator === "-") return oduzimanje;
+                else if(operator === "*") return mnozenje;
+                else if(operator === "/") return dijeljenje;
+                else if(operator === "%") return modulo;
+            }
+
+            let razlika = generator("-");
+            let umnozak = generator("*");
+            let ostatak = generator("%");
+
+            console.log(razlika(4,2)) //2
+            console.log(umnozak(2,2));  //4
+            console.log(ostatak(5,2));  //1
+        </script>
+    </body>
+</html>

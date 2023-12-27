@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+    <meta charset="UTF-8">
+    <html>
+    <head>
+        <title>NJP Labos 01 - zadatak 01</title>
+
+    </head>
+    <body >
+        <script type="text/javascript">
+            function zbrajanje(a, b){
+                return a + b;
+            }
+
+            function oduzimanje(a, b){
+                return a - b;
+            }
+
+            function racunaj(a, b, funkcija){
+                return funkcija(a, b);
+            }
+
+            console.log(racunaj(13, 7, zbrajanje));
+            console.log(racunaj(13, 3, oduzimanje));
+            console.log(racunaj(15, 4, (a, b) => { return a % b } ));
+        </script>
+    </body>
+</html>
