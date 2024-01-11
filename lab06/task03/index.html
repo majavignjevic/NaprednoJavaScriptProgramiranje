@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+</head>
+<body>
+  <input type="text" id="number1">
+  <input type="text" id="number2">
+
+  <button onclick="sendRequest('/z')">+</button>
+  <button onclick="sendRequest('/o')">-</button>
+
+  <br/>
+
+  <input type="text" id="result" disabled>
+
+  <script>
+    function sendRequest(route) {
+        const number1 = document.getElementById('number1').value;
+        const number2 = document.getElementById('number2').value;
+
+        if (number1 === '' || number2 === '') {
+            alert('Please enter both numbers.');
+            return;
+        }
+
+        fetch(`http://localhost:8080${route}?a=${number1}&b=${number2}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').value = data.result;
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    }
+  </script>
+</body>
+</html>
