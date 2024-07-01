@@ -1,0 +1,32 @@
+<div class="recipe" *ngIf="recipe && author && category && ingredients">
+    <div>
+        <img *ngIf="image" [src]="image.image_data" alt="Recipe Image">
+        <img src="image.image_data" alt="Default Image" *ngIf="!image">
+    </div>
+    <h1>{{ recipe.title }}</h1>
+    <span>{{ author.username }}</span>
+    <p>Kategorija: {{ category?.category_name }}</p>
+    <h4>Opis</h4>
+    <p>{{ recipe.description }}</p>
+    <div class="recipe ingredients">
+        <h4>Sastojci</h4>
+        <ul *ngIf="ingredients.length > 0">
+            <li *ngFor="let ingredient of ingredients">
+                {{ ingredient.name }}: {{ ingredient.quantity }}
+            </li>
+        </ul>
+        <div *ngIf="ingredients.length === 0">
+            <p>Nisu pronađeni sastojci</p>
+        </div>
+    </div>
+
+    <div class="recipe steps">
+        <h4>Upute</h4>
+        <p>{{ recipe.instructions }}</p>
+    </div>
+    <div class="enjoj">Bon apetit!</div>
+</div>
+
+<div class="loading" *ngIf="!recipe || !author || !category || !ingredients">
+    <p>Loading...</p>
+</div>

@@ -1,0 +1,44 @@
+<div class="editRecipe">
+  <div>
+    <img *ngIf="image" [src]="image.image_data" alt="Recipe Image">
+    <img src="image.image_data" alt="Default Image" *ngIf="!image">
+  </div>
+  <h1>Ažuriraj recept</h1>
+  <div class="formDiv">
+      <div class="user-box">
+        <input type="text" name="title" [(ngModel)]="recipe.title" required />
+        <label>Naziv recepta</label>
+      </div>
+      <div class="user-box">
+        <input type="text" name="description" [(ngModel)]="recipe.description" required />
+        <label>Kratki opis</label>
+      </div>
+      <div class="userbox">
+        <label>Promijeni kategoriju</label>
+        <div *ngFor="let cat of categories">
+          <input type="radio" [id]="cat.category_id" name="category" [(ngModel)]="recipe.category_id" [value]="cat.category_id" required />
+          <label [for]="cat.category_id">{{ cat.category_name }}</label>
+        </div>
+      </div>
+      <div class="userbox">
+        <label>Ažuiraj sastojke:</label>
+        <div *ngFor="let ing of ingredients; let i = index">
+          <div class="ingredient-row">
+            <input type="text" name="ingredient-{{i}}-quantity" [(ngModel)]="ing.quantity" />
+            <input type="text" name="ingredient-{{i}}-name" [(ngModel)]="ing.name" disabled />
+          </div>
+        </div>
+      </div>
+      <div class="user-box">
+        <input type="text" name="steps" [(ngModel)]="recipe.instructions" required />
+        <label>Koraci</label>
+      </div>
+      <button (click)="onSubmit()">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Ažuriraj recept
+      </button>
+  </div>
+</div>

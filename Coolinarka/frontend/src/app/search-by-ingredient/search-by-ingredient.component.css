@@ -1,0 +1,49 @@
+.recipes{
+    justify-content: space-between;
+    padding-bottom: 50px;
+}
+
+.recipe{
+    margin: 10px 0;
+    display: flex;
+}
+
+.flex-wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+h2{
+    font-size: 1.8rem;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+span{
+    font-size: 16px;
+}
+
+.img-container{
+    height: 250px;
+    width: 300px;
+    overflow: hidden;
+}
+img{
+    height: 250px;
+    width: 300px;
+    object-fit: cover;
+    transition: transform .5s ease;
+}
+
+a:hover{
+    cursor: pointer;
+    span{
+        color: black;
+    }
+    img{
+        transform: scale(1.5);
+        transition: transform .5s ease;
+    };
+}

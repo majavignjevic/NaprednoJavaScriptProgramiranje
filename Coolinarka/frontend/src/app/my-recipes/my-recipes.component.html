@@ -1,0 +1,23 @@
+<div class="my-recipes" *ngIf="activeUser">
+    <h5 *ngIf="myRecipes.length==0">Još nema recepata</h5>
+    <div class="recipe" *ngFor="let recipe of myRecipes">
+        <a [routerLink]="['/recipe/', recipe.recipe_id]">
+            <div class="img-container">
+                <img [src]="recipe.image_data" alt="Recipe Image"/>
+            </div>
+        </a>
+        <div class="flex-wrap">
+            <a [routerLink]="['/recipe/', recipe.recipe_id]">
+                <div class="title">
+                    <h2>{{ recipe.title }}</h2>
+                    <span>{{ recipe.username }}</span>
+                    <p>{{ recipe.description }}</p>
+                </div>
+            </a>
+            <div class="buttons">
+                <button class="update" (click)="updateRecipe(recipe.recipe_id)">Ažuriraj recept</button>
+                <button class="delete" (click)="deleteRecipe(recipe.recipe_id)">Izbriši recept</button>
+            </div>
+        </div>
+    </div>
+</div>

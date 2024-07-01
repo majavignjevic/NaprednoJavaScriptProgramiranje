@@ -1,0 +1,14 @@
+<div class="all-recipes">
+    <div class="recipe" *ngFor="let recipe of recipes">
+      <a [routerLink]="['/recipe/', recipe.recipe_id]">
+        <div class="img-container">
+          <img *ngIf="recipe.image_data" [src]="recipe.image_data" alt="Recipe Image">
+          <img src="default_image_url_here" alt="Default Image" *ngIf="!recipe.image">
+        </div>
+        <h2>{{ recipe.title }}</h2>
+        <span>{{ recipe.username }}</span>
+        <p>{{ recipe.description }}</p>
+      </a>
+    </div>
+  </div>
+  

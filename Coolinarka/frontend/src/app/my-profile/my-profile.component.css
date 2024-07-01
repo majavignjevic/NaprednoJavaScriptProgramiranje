@@ -1,0 +1,55 @@
+.user-box {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 10px 0;
+  }
+  
+  .user-box input {
+    width: 98%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 4px;
+  }
+  
+  .user-box label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  
+  .user-box input:focus ~ label,
+  .user-box input:valid ~ label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+  }
+  
+  .password-toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
+  
+  .password-toggle-icon i {
+    font-size: 16px;
+  }
+
+  button{
+    background-color: firebrick;
+    color: white;
+    font-weight: 500;
+    font-size: 1.3rem;
+    padding: 5px;
+    width: 120px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+
+  button:hover{
+    font-weight: 600;
+  }

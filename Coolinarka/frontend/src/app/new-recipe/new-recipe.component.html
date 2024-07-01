@@ -1,0 +1,50 @@
+<div class="newRecipe">
+  <h1>Stvori novi recept</h1>
+  <div class="formDiv">
+    <div>
+      <div class="user-box">
+        <input type="text" name="title" [(ngModel)]="title" required />
+        <label>Naziv recepta</label>
+      </div>
+      <div class="user-box">
+        <input type="text" name="description" [(ngModel)]="description" required />
+        <label>Opis</label>
+      </div>
+      <div class="userbox">
+        <label>Dodaj kategoriju</label>
+        <div *ngFor="let cat of categories">
+          <input type="radio" [id]="cat.category_id" name="category" [(ngModel)]="category" [value]="cat.category_id" required />
+          <label [for]="cat.category_id">{{ cat.category_name }}</label>
+        </div>
+      </div>
+      <div class="userbox">
+        <label>Dodaj sastojke</label>
+        <div *ngFor="let i of counterArray(8)">
+          <!-- Replace `i` with the index or use it as needed -->
+          <div *ngIf="selectedIngredients[i]">
+            <select [(ngModel)]="selectedIngredients[i].ingredientId">
+              <option *ngFor="let ing of ingredientsList" [value]="ing.ingredient_id">{{ ing.name }}</option>
+            </select>
+            <input type="text" name="quantity" [(ngModel)]="selectedIngredients[i].quantity">
+          </div>
+        </div>
+        
+      </div>
+      <div class="user-box">
+        <input type="text" name="steps" [(ngModel)]="steps" required />
+        <label>Koraci</label>
+      </div>
+      <div class="userbox">
+        <label>Dodaj sliku:</label>
+        <input type="file" id="file-upload-button" (change)="onFileSelected($event)" required />
+      </div>
+    </div>
+    <button type="button" (click)="onSubmit()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Stvori novi recept
+    </button>
+  </div>
+</div>

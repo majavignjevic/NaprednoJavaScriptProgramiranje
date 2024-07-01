@@ -1,0 +1,21 @@
+<div class="profile" *ngIf="activeUser">
+  <h1>Detalji profila za {{ activeUser?.username }}</h1>
+  <div class="basic-info">
+    <div class="user-box">
+      <input type="text" name="username" [(ngModel)]="activeUser.username" required />
+      <label>Korisničko ime</label>
+    </div>
+    <div class="user-box">
+      <input type="email" name="email" [(ngModel)]="activeUser.email" required />
+      <label>Email</label>
+    </div>
+    <div class="user-box">
+      <input [type]="isPasswordVisible ? 'text' : 'password'" id="password" [(ngModel)]="activeUser.password_hash" name="password" required />
+      <label>Lozinka</label>
+      <span class="password-toggle-icon" (click)="togglePasswordVisibility()">
+        <i [ngClass]="isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+      </span>
+    </div>
+    <button (click)="updateProfile()">Update</button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+
+<div class="searchByCategory">
+    <div class="searchBar">
+        <label>Odaberi kategoriju:</label>
+        <select [(ngModel)]="selectedCategory">
+            <option *ngFor="let category of categories" [value]="category.category_id">
+                {{ category.category_name }}
+            </option>
+        </select>
+        <button type="submit" (click)="search()">
+            <i class="fas fa-magnifying-glass"></i>
+        </button>
+    </div>
+    <div class="recipe" *ngFor="let recipe of showedRecipes">
+        <a [routerLink]="['/recipe/', recipe.recipe_id]">
+            <div class="img-container">
+                <img [src]="recipe.image_data" alt="Recipe Image"/>
+            </div>
+        </a>
+        <div class="flex-wrap">
+            <a [routerLink]="['/recipe', recipe.recipe_id]">
+                <div class="title">
+                <h2>{{ recipe.title }}</h2>
+                <span>{{ recipe.username }}</span>
+                <p>{{ recipe.description }}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+body{
+    margin: 0 auto;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+}
+
+h1{
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: firebrick;
+}
+
+h2{
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: firebrick;
+}
+
+h3{
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: firebrick;
+}
+
+h4{
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: firebrick;
+}
+
+h5{
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: firebrick;
+}
+
+h6{
+    font-size: 1rem;
+    font-weight: 800;
+    color: firebrick;
+}
+
+a:link{
+    color: olive;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+a:visited{
+    color: teal;
+    text-decoration: none;
+    transition: linear ease-in 1s;
+}
+
+a:hover{
+    color: crimson;
+    text-decoration: none;
+    font-weight: 600;
+    transition: linear ease-in 1s;
+}
+
+.container{
+    width: 1024px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+ul{
+    list-style: none;
+    padding: 0 0;
+}
+
+li{
+    margin: 0.5rem 0;
+    padding: 0 0;
+}
+
+button{
+    background-color: unset;
+    border: none;
+
+}
