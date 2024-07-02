@@ -16,6 +16,7 @@ export class NewRecipeComponent implements OnInit {
   categories: any = [];
   ingredientsList: any[] = [];
   selectedIngredients: any[] = []; 
+  activeUserNow: any;
   author: any;
 
   constructor(
@@ -45,6 +46,8 @@ export class NewRecipeComponent implements OnInit {
         this.selectedIngredients = [];
       }
     });
+
+    this.activeUserNow = this.activeUser.getActiveUser();
   }
 
   onFileSelected(event: Event) {

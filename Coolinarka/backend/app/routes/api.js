@@ -129,10 +129,11 @@ module.exports = function(express, pool) {
     router.post('/recipe-ingredients', (req, res) => {
         const ingredients = req.body.ingredients; 
         // console.log(ingredients);
-        // console.log(req.body.recipeId);
-        
+        // console.log(req.params);
+        // console.log(req.body);
+    
         const insertIngredientQuery = 'INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity) VALUES (?, ?, ?)';
- 
+    
         const recipeId = req.body.recipe_id;
 
         ingredients.forEach(ingredient => {
@@ -145,11 +146,9 @@ module.exports = function(express, pool) {
                 }
             });
         });
-        
 
         res.status(201).json({ message: 'Ingredients added successfully' });
     });
-
 
     router.get('/ingredients', (req, res) => {
         pool.query('SELECT COUNT(*) AS total FROM ingredients', (countError, countResults) => {
@@ -196,6 +195,8 @@ module.exports = function(express, pool) {
         const recipeId = req.params.id;
         const updatedIngredients = req.body;
 
+        console.log(req.params);
+        console.log(req.body);
         const updateIngredientQuery = " UPDATE recipe_ingredients SET quantity = ? WHERE recipe_id = ? AND ingredient_id = ?";
 
         updatedIngredients.forEach(ingredient => {
@@ -364,22 +365,22 @@ module.exports = function(express, pool) {
     });
 
     router.get('/images/:id', (req, res) => {
-    const imageId = req.params.id; 
-    
-    pool.query('SELECT * FROM images WHERE image_id = ?', [imageId], (error, results) => {
-        if (error) {
-        return res.status(500).json({ error: error.message });
-        } else if (results.length === 0) {
-        return res.status(404).json({ error: 'Image not found' });
-        } else {
-        const imageDetails = results[0];
-        const responseData = {
-            back: 'http://localhost:8081/api/images',
-            image: imageDetails
-        };
-        res.json(responseData);
-        }
-    });
+        const imageId = req.params.id; 
+        
+        pool.query('SELECT * FROM images WHERE image_id = ?', [imageId], (error, results) => {
+            if (error) {
+            return res.status(500).json({ error: error.message });
+            } else if (results.length === 0) {
+            return res.status(404).json({ error: 'Image not found' });
+            } else {
+            const imageDetails = results[0];
+            const responseData = {
+                back: 'http://localhost:8081/api/images',
+                image: imageDetails
+            };
+            res.json(responseData);
+            }
+        });
     });
 
     router.get('/categories', (req, res) => {
@@ -412,5 +413,51 @@ module.exports = function(express, pool) {
           res.json(results[0]);
         });
       });
+
+    router.delete('/recipes/:id', (req, res) => {
+        const recipeId = req.params.id;
+
+        const fetchImageIdQuery = 'SELECT image_id FROM recipes WHERE recipe_id = ?';
+        pool.query(fetchImageIdQuery, [recipeId], (error, results) => {
+            if (error) {
+                console.error(`Error fetching image_id for recipe with id ${recipeId}:`, error);
+                return res.status(500).json({ error: `Failed to fetch image_id for recipe with id ${recipeId}` });
+            }
+
+            const imageId = results[0]?.image_id;
+            
+            if (!imageId) {
+                return res.status(404).json({ error: `Recipe with id ${recipeId} not found` });
+            }
+
+            const deleteImageQuery = 'DELETE FROM images WHERE image_id = ?';
+            pool.query(deleteImageQuery, [imageId], (error) => {
+                if (error) {
+                    console.error(`Error deleting image with id ${imageId}:`, error);
+                    return res.status(500).json({ error: `Failed to delete image with id ${imageId}` });
+                }
+
+                const deleteIngredientsQuery = 'DELETE FROM recipe_ingredients WHERE recipe_id = ?';
+                pool.query(deleteIngredientsQuery, [recipeId], (error) => {
+                    if (error) {
+                        console.error(`Error deleting ingredients for recipe with id ${recipeId}:`, error);
+                        return res.status(500).json({ error: `Failed to delete ingredients for recipe with id ${recipeId}` });
+                    }
+
+            
+                    const deleteRecipeQuery = 'DELETE FROM recipes WHERE recipe_id = ?';
+                    pool.query(deleteRecipeQuery, [recipeId], (error) => {
+                        if (error) {
+                            console.error(`Error deleting recipe with id ${recipeId}:`, error);
+                            return res.status(500).json({ error: `Failed to delete recipe with id ${recipeId}` });
+                        }
+
+                        return res.status(200).json({ message: `Recipe with id ${recipeId} and related data deleted successfully` });
+                    });
+                });
+            });
+        });
+    });
+    
     return router;
 };

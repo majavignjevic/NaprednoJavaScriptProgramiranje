@@ -21,7 +21,7 @@ export class ApiServiceService {
   }
 
   deleteRecipe(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/recipes/${id}`); //http://localhost:8081/api/recipes/id
+    return this.http.delete(`${this.baseUrl}/recipes/${id}`);
   }
 
   updateRecipe(recipeId: number, recipeData: any): Observable<any> {

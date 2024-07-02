@@ -109,6 +109,7 @@ export class EditRecipeComponent implements OnInit {
       this.ApiService.updateIngredients(this.recipeId, updatedIngredients).subscribe(
         () => {
           console.log('Ingredients quantities updated successfully');
+          alert("Recept ažuiran!")
         },
         error => {
           console.error('Error updating ingredients quantities:', error);

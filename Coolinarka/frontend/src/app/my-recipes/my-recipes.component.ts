@@ -42,13 +42,12 @@ export class MyRecipesComponent implements OnInit {
   updateRecipe(id: number) {
     this.router.navigate([`/edit-a-recipe/${id}`]);
   }  
-  deleteRecipe(id: number) {
+
+   deleteRecipe(id: number) {
     this.apiService.deleteRecipe(id).subscribe(
       () => {
-        // console.log(`Recipe with ID ${id} deleted successfully.`);
-        // Remove the deleted recipe from myRecipes immediately
         this.myRecipes = this.myRecipes.filter(recipe => recipe.recipe_id !== id);
-        
+        alert("Recipe deleted successfully.");
       },
       error => {
         console.error(`Error deleting recipe with ID ${id}:`, error);
